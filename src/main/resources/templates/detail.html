@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+	<body>
+		<div layout:fragment="content">
+	        <img  style="width:40%; height:auto" th:src="'/images/' + ${livre.image}">
+	        <br>
+	        <h3 th:text="'Nombre de pages :' + ${livre.nbPages}"></h3>
+	        <br>
+	        <h3 th:text="'Nombre d\'exemplaire disponible :' + ${livre.nbExemplaire}"></h3>
+	        <br>
+	        <h3>Description :</h3> 
+	        <p th:text="${livre.description}"></p>
+		</div>
+	</body>
+</html>  

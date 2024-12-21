@@ -1,0 +1,29 @@
+<form method="POST" action="/creer-livre-validation" enctype="multipart/form-data">
+	
+	 <div>
+		 	<label for="titre">Titre : </label>
+		 	<input type="text" id="titre" name="titre">
+	 </div>
+	 
+ 	<div>
+	 		<label for="nb">Nombre exemplaire : </label>
+	 		<input type="number" id="nb" name="nb">
+ 	</div>
+	
+ 	<div>
+	 		<label for="nbPages">Nombre de pages : </label>
+	 		<input type="number" id="nbPages" name="nbPages">
+ 	</div>
+	
+ 	<div>
+		 	<label for="descr">Description : </label>
+		 	<input type="text" id="descr" name="descr">
+	</div>
+	
+	<div>
+			<label for="image">Image : </label>
+			<input type="file" id="image" name="image">
+	</div>
+	<input type="submit" value="ajouter" name="form_ajouter"/>
+	
+</form>

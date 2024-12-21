@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+</head>
+<body>
+    <header>
+	   <h1>Bibliothéque pour jeunes enfants</h1>
+	   <h1>Un ancien qui meure, est une bibliothèque qui brûle</h1>
+	</header>
+	<br/>
+	<section th:insert="~{navigation::barre-navigation}"></section>
+    <h2 th:text="${titre}"></h2>
+    <section layout:fragment="content"></section>
+    <footer>
+       <h6>Copyright perroquet - Tous droits réservés</h6>
+       <p class="text-center">
+         <a href="index.php?action=mentions-legales">Mentions légales</a>
+         <a href="index.php?action=cookies">Cookies</a>
+         <a href="index.php?action=donnees-personnelles">Données personnelles</a>
+       </p>
+    </footer>
+</body>
+</html>

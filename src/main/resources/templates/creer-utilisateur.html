@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+	<body>
+		<div layout:fragment="content">
+	    	<form action="/creer-compte-validation" method="POST">
+	            <div>
+	              <label for="username">Nom utilisateur</label>
+	              <input type="text" id="username" name="login">
+	            </div>
+	            <div>
+	              <label for="passwd">Mot de passe</label>
+	              <input type="password" id="passwd" name="password">
+	            </div>
+	            <div>
+	                <label for="mail">Email</label>
+	                <input type="mail" id="mail" name="mail" required>
+	            </div>
+	            <div>
+	                <input type="checkbox" name="mentions" id="flexCheckIndeterminate">
+	                <label for="flexCheckIndeterminate">
+	                  J'ai lu et j'accepte les conditions de service décrites dans les 
+	                  <a href="index.php?action=mentions-legales">mentions légales</a>
+	                </label>
+	            </div>
+	            <div>
+	                <input type="checkbox" name="perso" id="flexCheckIndeterminate">
+	                <label for="flexCheckIndeterminate">
+	                  J'accepte que mes données soient conservées pour avoir accés aux services de la bibliothéques 
+	                </label>
+	            </div>
+	            <button type="submit">Submit</button>
+          </form>
+		</div>
+	</body>
+</html>
