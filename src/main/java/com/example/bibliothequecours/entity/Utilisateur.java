@@ -65,9 +65,8 @@ public class Utilisateur {
 	public void setEmprunterLivreList(List<Livre> emprunterLivreList) {
 		this.emprunterLivreList = emprunterLivreList;
 	}
-	public void emprunterLivre(Livre livre1) {
-		// TODO Auto-generated method stub
-		
+	 public void emprunterLivre(Livre livre) {
+		 emprunterLivreList.add(livre);
 	}
 	
 }

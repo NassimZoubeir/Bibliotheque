@@ -69,7 +69,8 @@ public  class  UtilisateurController  {
     }
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
-		 request.getSession().invalidate();
+		System.out.println("====  /logout  ====");
+		request.getSession().invalidate();
 		return "accueil";
 	 }
 	@RequestMapping("/valider-panier")

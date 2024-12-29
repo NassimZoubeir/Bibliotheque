@@ -22,12 +22,11 @@
 			        <td th:text="${livre.titre}"></td>
 					<td th:text="${livre.nbExemplaire}"></td>
 			        <td th:text="${livre.nbPages}"></td>
-					<td><a  th:href="'/afficher-livre/'  +  ${livre.id}" class="btn  btn-info">Détail</a></td>
-					<td th:if="${session.role != null}"><a  th:href="'/reserver/'+ ${livre.id}" class="btn  btn-danger">Réserver</a></td>
+					<td><a th:href="'/afficher-livre/'  +  ${livre.id}" class="btn  btn-info">Détail</a></td>
+					<td th:if="${session.role != null}"><a  th:href="'/reserver/'+ ${livre.id}" class="btn btn-danger">Réserver</a></td>
 			      </tr>
 			  </tbody>
 			</table> 
-		
 		</div>
 	</body>
 </html>  
