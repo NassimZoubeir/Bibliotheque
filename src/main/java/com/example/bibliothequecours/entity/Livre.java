@@ -1,5 +1,7 @@
 package com.example.bibliothequecours.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +21,9 @@ public class Livre {
 	private String description;
 	@Transient
 	private String subDescription;
+	
+	 private LocalDate dateEmprunt;
+	 private LocalDate dateRetourPrevue; 
 	
 	public Livre() {}
 	public Livre(String titre, int nbExemplaire, int nbPages, String image, String description) {
@@ -90,6 +95,21 @@ public class Livre {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public LocalDate getDateEmprunt() {
+        return dateEmprunt;
+    }
+
+    public void setDateEmprunt(LocalDate dateEmprunt) {
+        this.dateEmprunt = dateEmprunt;
+    }
+
+    public LocalDate getDateRetourPrevue() {
+        return dateRetourPrevue;
+    }
+
+    public void setDateRetourPrevue(LocalDate dateRetourPrevue) {
+        this.dateRetourPrevue = dateRetourPrevue;
+    }
 	
 	   
 }

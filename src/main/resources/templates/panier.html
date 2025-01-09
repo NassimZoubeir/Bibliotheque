@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template" >
-	<body>
-		<div layout:fragment="content">
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Id</th>
-			      <th>Image</th>
-			      <th>Titre</th>
-			      <th>Nombre exemplaire</th>
-			      <th>Nombre de pages</th>
-			      <th colspan="3">Actions</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			      <tr th:each="livre:${livreEmprunterList}">
-			        <td th:text="${livre.id}"></td>
-			        <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
-			        <td th:text="${livre.titre}"></td>
-			        <td th:text="${livre.nbExemplaire}"></td>
-			        <td th:text="${livre.nbPages}"></td>
-			        <td><a th:href="'/afficher-livre/' + ${livre.id}">Détail</a></td>
-			        <td><a th:href="'/supprimer-panier/' + ${livre.id}">Supprimer du panier</a></td>
-			      </tr>
-			  </tbody>
-			</table> 
-			<a href="/valider-panier">Valider le panier</a>	        
-		</div>
-	</body>
-</html>  
+      layout:decorate="template">
+<body>
+    <div layout:fragment="content">
+        <h2>Panier</h2>
+        <form action="/valider-panier" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Nombre exemplaire</th>
+                        <th>Nombre de pages</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="livre:${livreEmprunterList}">
+                        <td th:text="${livre.id}"></td>
+                        <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
+                        <td th:text="${livre.titre}"></td>
+                        <td th:text="${livre.nbExemplaire}"></td>
+                        <td th:text="${livre.nbPages}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <label for="dateEmprunt">Date d'Emprunt :</label>
+                <input type="date" id="dateEmprunt" name="dateEmprunt" value="${#dates.format(dateEmprunt, 'yyyy-MM-dd')}" required>
+            </div>
+
+            <div>
+                <label for="dateRetour">Date de Retour :</label>
+                <input type="date" id="dateRetour" name="dateRetour" value="${#dates.format(dateRetour, 'yyyy-MM-dd')}" required>
+            </div>
+
+            <button type="submit">Confirmer l'Emprunt</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.bibliothequecours.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,21 +35,38 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 		Utilisateur utilisateur = utilisateurRepository.findById(id).get();
 		return utilisateur;
 	}
-	@Override
-	public  void  emprunterListLivreUtilisateur(List<Long>  livreIdList,  Long  idUtilisateur)  {
-		Utilisateur  utilisateur  =  lireUtilisateurParId(idUtilisateur);
-		List<Livre>  livreList  =  livreService.getLivreEmprunterListParLivreIdList(livreIdList);
-		utilisateur.getEmprunterLivreList().addAll(livreList);
-		System.out.println("majLivreEmprunterListUtilisateur  utilisateur="  +  utilisateur);
-		utilisateurRepository.save(utilisateur);
-		for(int  i=0;  i  <  livreList.size();  i++)  {
-			livreRepository.decrementerNbExemplaireLivre(livreList.get(i).getId());
-		}
-	}
+
 	@Override
 	public  List<Livre>  getEmpruntLivreList(Long  idUtilisateur)  {
 		Utilisateur  utilisateur  =  lireUtilisateurParId(idUtilisateur);
 		return  utilisateur.getEmprunterLivreList();
 	}
+	@Override
+	public void emprunterListLivreUtilisateur(List<Long> livreIdList, Long idUtilisateur, LocalDate dateEmprunt, LocalDate dateRetour) {
+	    Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
+	    List<Livre> livreList = livreService.getLivreEmprunterListParLivreIdList(livreIdList);
+
+	    for (Livre livre : livreList) {
+	        if (livre.getNbExemplaire() <= 0) {
+	            throw new IllegalStateException("Le livre \"" + livre.getTitre() + "\" n'est pas disponible.");
+	        }
+
+	        // Ajouter le livre à la liste des emprunts de l'utilisateur
+	        utilisateur.getEmprunterLivreList().add(livre);
+
+	        // Définir les dates d'emprunt et de retour
+	        livre.setDateEmprunt(dateEmprunt);
+	        livre.setDateRetourPrevue(dateRetour);
+
+	        // Mettre à jour le nombre d'exemplaires disponibles
+	        livre.setNbExemplaire(livre.getNbExemplaire() - 1);
+
+	        // Sauvegarder les modifications du livre
+	        livreRepository.save(livre);
+	    }
+
+	    utilisateurRepository.save(utilisateur);
+	}
+
 	
 }

@@ -1,30 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template" >
-	<body>
-		<div layout:fragment="content">
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Id</th>
-			      <th>Image</th>
-			      <th>Titre</th>
-			      <th>Nombre exemplaire</th>
-			      <th>Nombre de pages</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			      <tr th:each="livre:${livreList}">
-			        <td th:text="${livre.id}"></td>
-			        <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
-			        <td th:text="${livre.titre}"></td>
-			        <td th:text="${livre.nbExemplaire}"></td>
-			        <td th:text="${livre.nbPages}"></td>
-			      </tr>
-			  </tbody>
-			</table> 
-		
-		</div>
-	</body>
-</html>  
+      layout:decorate="template">
+<body>
+    <div layout:fragment="content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Titre</th>
+                    <th>Nombre exemplaire</th>
+                    <th>Nombre de pages</th>
+                    <th>Date d'emprunt</th>
+                    <th>Date de retour</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="livre : ${livreList}">
+                    <td th:text="${livre.id}"></td>
+                    <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
+                    <td th:text="${livre.titre}"></td>
+                    <td th:text="${livre.nbExemplaire}"></td>
+                    <td th:text="${livre.nbPages}"></td>
+                    <td th:text="${livre.dateEmprunt != null ? livre.dateEmprunt : 'Non défini'}"></td>
+                    <td th:text="${livre.dateRetourPrevue != null ? livre.dateRetourPrevue : 'Non défini'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

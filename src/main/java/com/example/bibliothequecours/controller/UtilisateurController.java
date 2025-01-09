@@ -1,13 +1,17 @@
 package com.example.bibliothequecours.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.bibliothequecours.entity.Livre;
 import com.example.bibliothequecours.entity.Utilisateur;
@@ -73,21 +77,34 @@ public  class  UtilisateurController  {
 		request.getSession().invalidate();
 		return "accueil";
 	 }
-	@RequestMapping("/valider-panier")
-	public  String  validerPanier(Model  model,  HttpServletRequest  request)  {
-		System.out.println("====  /valider-panier  ====");
-		List<Long>  livreEmprunterListId  =  (List<Long>)  request.getSession().getAttribute("livreEmprunterListId");
-		System.out.println("livreEmprunterListId="  +  livreEmprunterListId);
-		if(livreEmprunterListId  !=  null)  {
-			Long  idUtilisateur  =  (Long)  request.getSession().getAttribute("id");
-			utilisateurService.emprunterListLivreUtilisateur(livreEmprunterListId,  idUtilisateur);
-			request.getSession().removeAttribute("livreEmprunterListId");
-		}
-		else  System.out.println("Pas de ivre emprunté");
-		return  "redirect:/afficher-emprunt";
+	@RequestMapping(value = "/valider-panier", method = RequestMethod.POST)
+	public String validerPanier(
+	    @RequestParam("dateEmprunt") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateEmprunt,
+	    @RequestParam("dateRetour") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateRetour,
+	    Model model, HttpServletRequest request
+	) {
+	    System.out.println("==== /valider-panier ====");
+	    
+	    List<Long> livreEmprunterListId = (List<Long>) request.getSession().getAttribute("livreEmprunterListId");
+	    System.out.println("livreEmprunterListId=" + livreEmprunterListId);
+
+	    if (livreEmprunterListId != null) {
+	        Long idUtilisateur = (Long) request.getSession().getAttribute("id");
+	        
+	        // Passer les dates d'emprunt et de retour à la méthode
+	        utilisateurService.emprunterListLivreUtilisateur(livreEmprunterListId, idUtilisateur, dateEmprunt, dateRetour);
+	        
+	        // Retirer les livres du panier
+	        request.getSession().removeAttribute("livreEmprunterListId");
+	    } else {
+	        System.out.println("Pas de livre emprunté");
+	    }
+	    
+	    return "redirect:/afficher-emprunt";
 	}
+
 	@RequestMapping("/afficher-emprunt")
-	public  String  afficherEmpreunt(Model  model,  HttpServletRequest  request)  {
+	public  String  afficherEmprunt(Model  model,  HttpServletRequest  request)  {
 		System.out.println("====  /afficher-emprunt  ====");
 		Long  idUtilisateur  =  (Long)  request.getSession().getAttribute("id");
 		List<Livre>  livreList  =  utilisateurService.getEmpruntLivreList(idUtilisateur);
@@ -96,4 +113,5 @@ public  class  UtilisateurController  {
 		model.addAttribute("livreList",  livreList);
 		return  "emprunt";
 	}
+	
 }
