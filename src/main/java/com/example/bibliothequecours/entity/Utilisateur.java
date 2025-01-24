@@ -2,11 +2,10 @@ package com.example.bibliothequecours.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Utilisateur {
@@ -17,8 +16,8 @@ public class Utilisateur {
 	private String passwdHash;
 	private String email;
 	private String role;
-	@ManyToMany
-	private  List<Livre>  emprunterLivreList;
+	@OneToMany
+	private List<Emprunt> emprunterLivreList;
 	
 	public Utilisateur() {}
 	public Utilisateur(String login, String passwdHash, String email, String role) {
@@ -26,11 +25,14 @@ public class Utilisateur {
 		this.passwdHash = passwdHash;
 		this.email = email;
 		this.role = role;
-		emprunterLivreList = new ArrayList<Livre>();
+		emprunterLivreList = new ArrayList<Emprunt>();
 	}
 	@Override
 	public String toString() {
 		return "Utilisateur [login=" + login + ", id=" + id + ", passwdHash=" + passwdHash + ", email=" + email + ", role=" + role +"]";
+	}
+	public void emprunterLivre(Emprunt emprunt) {
+		emprunterLivreList.add(emprunt);
 	}
 	public String getLogin() {
 		return login;
@@ -59,14 +61,13 @@ public class Utilisateur {
 	public String getRole() {
 		return role;
 	}
-	public List<Livre> getEmprunterLivreList() {
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public List<Emprunt> getEmprunterLivreList() {
 		return emprunterLivreList;
 	}
-	public void setEmprunterLivreList(List<Livre> emprunterLivreList) {
+	public void setEmprunterLivreList(List<Emprunt> emprunterLivreList) {
 		this.emprunterLivreList = emprunterLivreList;
-	}
-	 public void emprunterLivre(Livre livre) {
-		 emprunterLivreList.add(livre);
-	}
-	
+	}	
 }

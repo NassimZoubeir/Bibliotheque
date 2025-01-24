@@ -1,13 +1,14 @@
 package com.example.bibliothequecours.service;
 
-import java.time.LocalDate;
-import java.util.List;
 
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.example.bibliothequecours.entity.Emprunt;
 import com.example.bibliothequecours.entity.Livre;
 import com.example.bibliothequecours.entity.Utilisateur;
+import com.example.bibliothequecours.repository.EmpruntRepository;
 import com.example.bibliothequecours.repository.LivreRepository;
 import com.example.bibliothequecours.repository.UtilisateurRepository;
 
@@ -21,6 +22,9 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 
 	@Autowired
 	private  LivreServiceItf  livreService;
+	
+	@Autowired
+	private EmpruntRepository empruntRepository;
 
 	@Override
 	public void creerUtilisateur(Utilisateur utilisateur) {
@@ -35,38 +39,34 @@ public  class UtilisateurService implements UtilisateurServiceItf {
 		Utilisateur utilisateur = utilisateurRepository.findById(id).get();
 		return utilisateur;
 	}
-
 	@Override
-	public  List<Livre>  getEmpruntLivreList(Long  idUtilisateur)  {
-		Utilisateur  utilisateur  =  lireUtilisateurParId(idUtilisateur);
-		return  utilisateur.getEmprunterLivreList();
+	public List<Emprunt> getEmpruntLivreList(Long idUtilisateur) {
+		Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
+		System.out.println("UtilisateurService - getEmpruntLivreList utilisateur:" + utilisateur);
+		return utilisateur.getEmprunterLivreList();
 	}
 	@Override
-	public void emprunterListLivreUtilisateur(List<Long> livreIdList, Long idUtilisateur, LocalDate dateEmprunt, LocalDate dateRetour) {
-	    Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
-	    List<Livre> livreList = livreService.getLivreEmprunterListParLivreIdList(livreIdList);
-
-	    for (Livre livre : livreList) {
-	        if (livre.getNbExemplaire() <= 0) {
-	            throw new IllegalStateException("Le livre \"" + livre.getTitre() + "\" n'est pas disponible.");
-	        }
-
-	        // Ajouter le livre à la liste des emprunts de l'utilisateur
-	        utilisateur.getEmprunterLivreList().add(livre);
-
-	        // Définir les dates d'emprunt et de retour
-	        livre.setDateEmprunt(dateEmprunt);
-	        livre.setDateRetourPrevue(dateRetour);
-
-	        // Mettre à jour le nombre d'exemplaires disponibles
-	        livre.setNbExemplaire(livre.getNbExemplaire() - 1);
-
-	        // Sauvegarder les modifications du livre
-	        livreRepository.save(livre);
-	    }
-
-	    utilisateurRepository.save(utilisateur);
+	public Emprunt getEmpruntById(Long id) {
+		return empruntRepository.findById(id).get();
 	}
-
+	@Override
+	public void emprunterListLivreUtilisateur(List<Long> livreIdList, Long idUtilisateur) {
+		Utilisateur utilisateur = lireUtilisateurParId(idUtilisateur);
+		List<Livre> livreList = livreService.getLivreEmprunterListParLivreIdList(livreIdList);
+		System.out.println("UtilisateurService - emprunterListLivreUtilisateur livreList:\n" + livreList);
+		System.out.println("majLivreEmprunterListUtilisateur utilisateur=" + utilisateur);
+		Emprunt emprunt = null;
+		for(int i=0; i < livreList.size(); i++) {
+			emprunt = new Emprunt(livreList.get(i), new Date());
+			empruntRepository.save(emprunt);
+			utilisateur.emprunterLivre(emprunt);
+		}
+		System.out.println("majLivreEmprunterListUtilisateur utilisateur=" + utilisateur);
+		utilisateurRepository.save(utilisateur);	
+	}
+	@Override
+	public void majEmprunt(Emprunt emprunt) {
+		empruntRepository.save(emprunt);
+	}
 	
 }

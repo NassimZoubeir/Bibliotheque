@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template">
-<body>
-    <div layout:fragment="content">
-        <table>
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Image</th>
-                    <th>Titre</th>
-                    <th>Nombre exemplaire</th>
-                    <th>Nombre de pages</th>
-                    <th>Date d'emprunt</th>
-                    <th>Date de retour</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="livre : ${livreList}">
-                    <td th:text="${livre.id}"></td>
-                    <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
-                    <td th:text="${livre.titre}"></td>
-                    <td th:text="${livre.nbExemplaire}"></td>
-                    <td th:text="${livre.nbPages}"></td>
-                    <td th:text="${livre.dateEmprunt != null ? livre.dateEmprunt : 'Non défini'}"></td>
-                    <td th:text="${livre.dateRetourPrevue != null ? livre.dateRetourPrevue : 'Non défini'}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+      layout:decorate="template" >
+	<body>
+		<div layout:fragment="content">
+			<table>
+			  <thead>
+			    <tr>
+			      <th>Id</th>
+			      <th>Titre</th>
+			      <th>Date emprunt</th>
+			      <th>Date retour</th>
+				  <th>Action</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			      <tr th:each="emprunt:${empruntList}">
+			        <td th:text="${emprunt.id}"></td>
+			        <td th:text="${emprunt.livre.titre}"></td>
+			        <td th:text="${emprunt.enpruntDate}"></td>
+			         <td th:text="${emprunt.retourDate}"></td>
+			        <td><a th:href="'/retourner-emprunt/' + ${emprunt.id}">Retour</a></td>
+			      </tr>
+			  </tbody>
+			</table> 
+		
+		</div>
+	</body>
+</html>  

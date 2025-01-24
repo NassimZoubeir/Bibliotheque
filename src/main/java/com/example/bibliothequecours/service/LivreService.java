@@ -21,12 +21,12 @@ public class LivreService implements LivreServiceItf{
 	}
 	@Override
 	 public void creerLivre(Livre livre) {
-	 livreRepository.save(livre);
+		livreRepository.save(livre);
 	 }
 	@Override
 	 public Livre getLivreById(Long id) {
-	 Livre livre = livreRepository.findById(id).get();
-	 return livre;
+		Livre livre = livreRepository.findById(id).get();
+		return livre;
 	 }
 	@Override
 	public List<Livre> getLivreEmprunterListParLivreIdList(List<Long> livreEmprunterListId){
@@ -36,5 +36,12 @@ public class LivreService implements LivreServiceItf{
 		}
 		return livreEmprunterList;
     }
-
+	@Override
+	public void decrementerNbExemplaireLivre(Long id) {
+		livreRepository.decrementerNbExemplaireLivre(id);
+	}
+	@Override
+	public void incrementerNbExemplaireLivre(Long id) {
+		livreRepository.incrementerNbExemplaireLivre(id);
+	}
 }

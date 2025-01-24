@@ -14,4 +14,9 @@ public interface LivreRepository extends JpaRepository<Livre, Long>  {
 	@Transactional
 	@Query("UPDATE Livre l SET l.nbExemplaire = l.nbExemplaire - 1 WHERE l.id = :id")
 	void decrementerNbExemplaireLivre(@Param("id") Long id);
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE Livre l SET l.nbExemplaire = l.nbExemplaire + 1 WHERE l.id = :id")
+	void incrementerNbExemplaireLivre(@Param("id") Long id);
 }

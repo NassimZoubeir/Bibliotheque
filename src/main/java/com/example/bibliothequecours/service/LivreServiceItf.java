@@ -10,4 +10,6 @@ public interface LivreServiceItf {
 	void creerLivre(Livre livre);
 	Livre getLivreById(Long id);
 	List<Livre> getLivreEmprunterListParLivreIdList(List<Long> livreEmprunterListId);
+	void decrementerNbExemplaireLivre(Long id);
+	void incrementerNbExemplaireLivre(Long id);
 }
