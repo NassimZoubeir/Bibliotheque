@@ -13,7 +13,7 @@ public class Emprunt {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private Date enpruntDate;
+	private Date empruntDate;
 	private Date retourDate;
 	@ManyToOne
 	private Livre livre;
@@ -22,12 +22,12 @@ public class Emprunt {
 
 	public Emprunt(Livre livre, Date enpruntDate) {
 		this.livre = livre;
-		this.enpruntDate = enpruntDate;
+		this.empruntDate = enpruntDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Emprunt [id=" + id + " , enpruntDate=" + enpruntDate + ", retourDate=" + retourDate + ", livre=" + livre + "]";
+		return "Emprunt [id=" + id + " , enpruntDate=" + empruntDate + ", retourDate=" + retourDate + ", livre=" + livre + "]";
 	}
 
 	public Long getId() {
@@ -39,11 +39,11 @@ public class Emprunt {
 	}
 
 	public Date getEnpruntDate() {
-		return enpruntDate;
+		return empruntDate;
 	}
 
 	public void setEnpruntDate(Date enpruntDate) {
-		this.enpruntDate = enpruntDate;
+		this.empruntDate = enpruntDate;
 	}
 
 	public Date getRetourDate() {
