@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Emprunt {
@@ -20,14 +19,14 @@ public class Emprunt {
 	
 	public Emprunt() {}
 
-	public Emprunt(Livre livre, Date enpruntDate) {
+	public Emprunt(Livre livre, Date empruntDate) {
 		this.livre = livre;
-		this.empruntDate = enpruntDate;
+		this.empruntDate = empruntDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Emprunt [id=" + id + " , enpruntDate=" + empruntDate + ", retourDate=" + retourDate + ", livre=" + livre + "]";
+		return "Emprunt [id=" + id + " , empruntDate=" + empruntDate + ", retourDate=" + retourDate + ", livre=" + livre + "]";
 	}
 
 	public Long getId() {
@@ -38,12 +37,12 @@ public class Emprunt {
 		this.id = id;
 	}
 
-	public Date getEnpruntDate() {
+	public Date getEmpruntDate() {
 		return empruntDate;
 	}
 
-	public void setEnpruntDate(Date enpruntDate) {
-		this.empruntDate = enpruntDate;
+	public void setEmpruntDate(Date empruntDate) {
+		this.empruntDate = empruntDate;
 	}
 
 	public Date getRetourDate() {

@@ -18,7 +18,7 @@
 			      <tr th:each="emprunt:${empruntList}">
 			        <td th:text="${emprunt.id}"></td>
 			        <td th:text="${emprunt.livre.titre}"></td>
-			        <td th:text="${emprunt.enpruntDate}"></td>
+			        <td th:text="${emprunt.empruntDate}"></td>
 			         <td th:text="${emprunt.retourDate}"></td>
 			        <td><a th:href="'/retourner-emprunt/' + ${emprunt.id}">Retour</a></td>
 			      </tr>
