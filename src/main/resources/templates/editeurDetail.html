@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+    <head>
+        <title>Détails de l'éditeur</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 th:text="${editeur.nom}"></h1>
+            <p>
+               Lien : <a th:href="${editeur.lienDescription}" th:text="${editeur.lienDescription}" target="_blank"></a>
+            </p>
+
+            <h3>Livres publiés par cet éditeur :</h3>
+            <ul>
+                <li th:each="livre : ${livres}" th:text="${livre.titre}"></li>
+            </ul>
+        </div>
+    </body>
+</html>

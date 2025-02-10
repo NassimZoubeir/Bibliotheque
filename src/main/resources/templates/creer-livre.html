@@ -1,4 +1,10 @@
-<form method="POST" action="/creer-livre-validation" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template" >
+	<body>
+		<div layout:fragment="content">
+		<form method="POST" action="/creer-livre-validation" enctype="multipart/form-data">
 	
 	 <div>
 		 	<label for="titre">Titre : </label>
@@ -26,4 +32,9 @@
 	</div>
 	<input type="submit" value="ajouter" name="form_ajouter"/>
 	
-</form>
+	</form>
+
+ 	
+	</div>
+	</body>
+</html>

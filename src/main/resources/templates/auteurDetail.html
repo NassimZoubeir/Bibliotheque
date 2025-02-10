@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template">
+    <head>
+        <title>Détails de l'auteur</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 th:text="${auteur.nom}"></h1>
+            <p th:text="${auteur.bibliographie}"></p>
+
+            <h3>Livres de cet auteur :</h3>
+            <ul>
+                <li th:each="livre : ${livres}" th:text="${livre.titre}"></li>
+            </ul>
+        </div>
+    </body>
+</html>

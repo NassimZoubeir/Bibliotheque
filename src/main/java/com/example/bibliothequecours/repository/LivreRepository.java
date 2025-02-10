@@ -1,11 +1,15 @@
 package com.example.bibliothequecours.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.bibliothequecours.entity.Auteur;
+import com.example.bibliothequecours.entity.Editeur;
 import com.example.bibliothequecours.entity.Livre;
 
 
@@ -19,4 +23,8 @@ public interface LivreRepository extends JpaRepository<Livre, Long>  {
 	@Transactional
 	@Query("UPDATE Livre l SET l.nbExemplaire = l.nbExemplaire + 1 WHERE l.id = :id")
 	void incrementerNbExemplaireLivre(@Param("id") Long id);
+
+	 List<Livre> findByAuteur(Auteur auteur);
+
+	 List<Livre> findByEditeur(Editeur editeur);
 }

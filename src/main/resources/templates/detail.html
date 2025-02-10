@@ -11,11 +11,15 @@
 	        <h3 th:text="'Nombre d\'exemplaire disponible :' + ${livre.nbExemplaire}"></h3>
 			<br>
 			<h3>Auteur :</h3> 
-			<p th:if="${livre.auteur != null}" th:text="${livre.auteur.nom}"></p>
-			<p th:if="${livre.auteur == null}">Auteur inconnu</p>
-			<h3>Editeur :</h3> 
-			<p th:if="${livre.editeur != null}" th:text="${livre.editeur.nom}"></p>
-			<p th:if="${livre.editeur == null}">Editeur inconnu</p>
+			 <p th:if="${livre.auteur != null}">
+			    <a th:href="@{/auteurs/{id}(id=${livre.auteur.id})}" th:text="${livre.auteur.nom}"></a>
+			 </p>
+			 <p th:if="${livre.auteur == null}">Auteur inconnu</p>
+			 <h3>Éditeur :</h3> 
+			 <p th:if="${livre.editeur != null}">
+			     <a th:href="@{/editeurs/{id}(id=${livre.editeur.id})}" th:text="${livre.editeur.nom}"></a>
+			 </p>
+			 <p th:if="${livre.editeur == null}">Éditeur inconnu</p>
 	        <h3>Description :</h3> 
 	        <p th:text="${livre.description}"></p>
 		</div>
