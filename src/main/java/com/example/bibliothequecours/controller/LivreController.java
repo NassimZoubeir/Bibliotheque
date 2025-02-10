@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.bibliothequecours.entity.Auteur;
+import com.example.bibliothequecours.entity.Editeur;
 import com.example.bibliothequecours.entity.Livre;
+import com.example.bibliothequecours.repository.AuteurRepository;
+import com.example.bibliothequecours.repository.EditeurRepository;
 import com.example.bibliothequecours.service.LivreServiceItf;
 
 import jakarta.servlet.ServletContext;
@@ -26,6 +30,12 @@ import jakarta.servlet.http.HttpServletRequest;
 public class LivreController {
 	@Autowired
 	private  LivreServiceItf  livreService;
+	
+	@Autowired
+	private AuteurRepository auteurRepository;
+
+	@Autowired
+	private EditeurRepository editeurRepository;
 	
 	@RequestMapping("/accueil")
 	public  String  accueil()  {
@@ -43,6 +53,8 @@ public class LivreController {
 	 @RequestMapping("/creer-livre")
 	 public String creerLivre(Model model) {
 	 model.addAttribute("titre", "Créer livre");
+	 model.addAttribute("auteurs", auteurRepository.findAll());
+     model.addAttribute("editeurs", editeurRepository.findAll());
 	 return "creer-livre";
 	 }
 	 @Autowired
@@ -51,21 +63,26 @@ public class LivreController {
 	 @Value("${dir.images}")
 	 private String imageDir;
 	 
-	 @RequestMapping("/creer-livre-validation")
-	 public String creerValidationLivre(String titre, int nb, int nbPages, String descr, MultipartFile image) {
-		 if(!image.isEmpty()) {
-			 String couverture = image.getOriginalFilename();
-			 String absolutePath = Paths.get(context.getRealPath("/"), "resources/images").toString();
-			 String pathFile = imageDir + couverture;
-		 try {
-			 image.transferTo(new File(pathFile));
-		 } catch (IllegalStateException | IOException e) {
-			 e.printStackTrace();
-		 }
-		 livreService.creerLivre(new Livre(titre, nb, nbPages, couverture, descr));
-		}
-		return "redirect:/afficher-livres";
-	}
+
+	    @RequestMapping("/creer-livre-validation")
+	    public String creerValidationLivre(String titre, int nb, int nbPages, String descr, MultipartFile image, Long auteurId, Long editeurId) {
+	        Auteur auteur = auteurRepository.findById(auteurId).orElse(null);
+	        Editeur editeur = editeurRepository.findById(editeurId).orElse(null);
+	        if (!image.isEmpty()) {
+	            String couverture = image.getOriginalFilename();
+	            String pathFile = imageDir + couverture;
+	            try {
+	                image.transferTo(new File(pathFile));
+	            } catch (IllegalStateException | IOException e) {
+	                e.printStackTrace();
+	            }
+	            Livre livre = new Livre(titre, nb, nbPages, couverture, descr);
+	            livre.setAuteur(auteur);
+	            livre.setEditeur(editeur);
+	            livreService.creerLivre(livre);
+	        }
+	        return "redirect:/afficher-livres";
+}
 	 @RequestMapping("/afficher-livre/{id}")
 	 public String afficherLivre(@PathVariable Long id, Model model) {
 		 System.out.println("==== /afficher-livre ====");

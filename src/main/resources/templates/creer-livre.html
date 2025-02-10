@@ -27,6 +27,20 @@
 	</div>
 	
 	<div>
+	                  <label for="auteur">Auteur :</label>
+	                  <select id="auteur" name="auteurId" required>
+	                      <option th:each="auteur : ${auteurs}" th:value="${auteur.id}" th:text="${auteur.nom}"></option>
+	                  </select>
+	              </div>
+
+	              <div>
+	                  <label for="editeur">Éditeur :</label>
+	                  <select id="editeur" name="editeurId" required>
+	                      <option th:each="editeur : ${editeurs}" th:value="${editeur.id}" th:text="${editeur.nom}"></option>
+	                  </select>
+	              </div>
+	
+	<div>
 			<label for="image">Image : </label>
 			<input type="file" id="image" name="image">
 	</div>
