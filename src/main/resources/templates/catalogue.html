@@ -2,31 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template" >
-	<body>
-		<div layout:fragment="content">
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Id</th>
-			      <th>Image</th>
-			      <th>Titre</th>
-				  <th>Nombre exemplaire</th>
-			      <th>Nombre de pages</th>
-			      <th colspan="3">Actions</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			      <tr th:each="livre:${livreList}">
-			        <td th:text="${livre.id}"></td>
-			        <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
-			        <td th:text="${livre.titre}"></td>
-					<td th:text="${livre.nbExemplaire}"></td>
-			        <td th:text="${livre.nbPages}"></td>
-					<td><a th:href="'/afficher-livre/'  +  ${livre.id}" class="btn  btn-info">Détail</a></td>
-					<td th:if="${session.role != null}"><a  th:href="'/reserver/'  +  ${livre.id}"  class="btn  btn-danger">Réserver</a></td>
-			      </tr>
-			  </tbody>
-			</table> 
-		</div>
-	</body>
-</html>  
+<body>
+    <div layout:fragment="content" class="container my-5">
+        <h2 class="text-center text-primary mb-4">Catalogue des livres</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow">
+                <thead class="bg-dark text-white">
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Exemplaires</th>
+                        <th>Pages</th>
+                        <th colspan="2" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="livre : ${livreList}">
+                        <td th:text="${livre.id}"></td>
+                        <td>
+                            <img th:src="'/images/' + ${livre.image}" class="rounded shadow-sm" width="80">
+                        </td>
+                        <td class="fw-bold text-primary" th:text="${livre.titre}"></td>
+                        <td th:text="${livre.nbExemplaire}"></td>
+                        <td th:text="${livre.nbPages}"></td>
+                        <td>
+                            <a th:href="'/afficher-livre/' + ${livre.id}" class="btn btn-primary btn-sm text-white">
+                                <i class="bi bi-eye"></i> Détail
+                            </a>
+                        </td>
+                        <td th:if="${session.role != null}">
+                            <a th:href="'/reserver/' + ${livre.id}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-bookmark"></i> Réserver
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

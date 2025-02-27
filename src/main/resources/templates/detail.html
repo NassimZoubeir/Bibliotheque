@@ -2,26 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template" >
-	<body>
-		<div layout:fragment="content">
-	        <img  style="width:40%; height:auto" th:src="'/images/' + ${livre.image}">
-	        <br>
-	        <h3 th:text="'Nombre de pages :' + ${livre.nbPages}"></h3>
-	        <br>
-	        <h3 th:text="'Nombre d\'exemplaire disponible :' + ${livre.nbExemplaire}"></h3>
-			<br>
-			<h3>Auteur :</h3> 
-			 <p th:if="${livre.auteur != null}">
-			    <a th:href="@{/auteurs/{id}(id=${livre.auteur.id})}" th:text="${livre.auteur.nom}"></a>
-			 </p>
-			 <p th:if="${livre.auteur == null}">Auteur inconnu</p>
-			 <h3>Éditeur :</h3> 
-			 <p th:if="${livre.editeur != null}">
-			     <a th:href="@{/editeurs/{id}(id=${livre.editeur.id})}" th:text="${livre.editeur.nom}"></a>
-			 </p>
-			 <p th:if="${livre.editeur == null}">Éditeur inconnu</p>
-	        <h3>Description :</h3> 
-	        <p th:text="${livre.description}"></p>
-		</div>
-	</body>
-</html>  
+<body>
+    <div layout:fragment="content" class="container my-5">
+        <div class="card shadow-lg p-4">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img th:src="'/images/' + ${livre.image}" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-8">
+                    
+                    <p><strong>📖 Nombre de pages :</strong> <span th:text="${livre.nbPages}"></span></p>
+                    <p><strong>📚 Nombre d'exemplaires disponibles :</strong> <span th:text="${livre.nbExemplaire}"></span></p>
+
+                    <h4 class="mt-4">Auteur :</h4>
+                    <p th:if="${livre.auteur != null}">
+                        <a th:href="@{/auteurs/{id}(id=${livre.auteur.id})}" class="btn btn-link text-decoration-none" th:text="${livre.auteur.nom}"></a>
+                    </p>
+                    <p th:if="${livre.auteur == null}" class="text-muted">Auteur inconnu</p>
+
+                    <h4>Éditeur :</h4>
+                    <p th:if="${livre.editeur != null}">
+                        <a th:href="@{/editeurs/{id}(id=${livre.editeur.id})}" class="btn btn-link text-decoration-none" th:text="${livre.editeur.nom}"></a>
+                    </p>
+                    <p th:if="${livre.editeur == null}" class="text-muted">Éditeur inconnu</p>
+
+                    <h4>Description :</h4>
+                    <p class="text-justify" th:text="${livre.description}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

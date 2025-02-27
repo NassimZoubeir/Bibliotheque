@@ -2,25 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-	<meta charset="UTF-8" />
-	<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliothèque Jeunes Enfants</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-    <header>
-	   <h1>Bibliothéque pour jeunes enfants</h1>
-	   <h1>Un ancien qui meure, est une bibliothèque qui brûle</h1>
-	</header>
-	<br/>
-	<section th:insert="~{navigation::barre-navigation}"></section>
-    <h2 th:text="${titre}"></h2>
-    <section layout:fragment="content"></section>
-    <footer>
-       <h6>Copyright perroquet - Tous droits réservés</h6>
-       <p class="text-center">
-         <a href="index.php?action=mentions-legales">Mentions légales</a>
-         <a href="index.php?action=cookies">Cookies</a>
-         <a href="index.php?action=donnees-personnelles">Données personnelles</a>
-       </p>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <header class="bg-primary text-white text-center py-4 shadow">
+        <h1 class="h3 fw-bold">Bibliothèque pour jeunes enfants</h1>
+        <p class="lead">Un ancien qui meurt est une bibliothèque qui brûle</p>
+    </header>
+
+    <section th:insert="~{navigation::barre-navigation}"></section>
+
+    <div class="container my-5 flex-grow-1">
+        <h2 class="text-center text-primary mb-4" th:text="${titre}"></h2>
+        <section layout:fragment="content"></section>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <h6 class="mb-1">© 2025 Bibliothèque - Tous droits réservés</h6>
+        <p class="mb-0">
+            <a href="index.php?action=mentions-legales" class="text-white me-3">Mentions légales</a>
+            <a href="index.php?action=cookies" class="text-white me-3">Cookies</a>
+            <a href="index.php?action=donnees-personnelles" class="text-white">Données personnelles</a>
+        </p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

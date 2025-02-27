@@ -5,35 +5,47 @@
 </head>
 <body>
 <div th:fragment="barre-navigation">
-    <ul>
-        <li>
-            <a href="/accueil">Accueil</a>
-        </li>
-        <li>
-            <a href="/afficher-livres">Catalogue</a>
-        </li>
-        <li th:if="${session.id != null}">
-            <a href="/afficher-panier">Panier</a>
-        </li>
-        <li th:if="${session.id != null}">
-            <a href="/afficher-emprunt">Emprunt</a>
-        </li>
-        <li>
-            <a href="/creer-compte">Créer un compte</a>
-        </li>
-        <li th:if="${session.role == 'administrateur'}">
-            <a href="/creer-livre">Créer livre</a>
-        </li>
-        <li th:if="${session.role == 'administrateur'}">
-            <a href="/admin">Partie Administrateur</a>
-        </li>
-        <li th:if="${session.id == null}">
-            <a href="/login">Se connecter</a>
-        </li>
-        <li th:if="${session.id != null}">
-            <a href="/logout">Se déconnecter</a>
-        </li>
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/accueil">Bibliothèque</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accueil">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/afficher-livres">Catalogue</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.id != null}">
+                        <a class="nav-link" href="/afficher-panier">Panier</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.id != null}">
+                        <a class="nav-link" href="/afficher-emprunt">Emprunt</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/creer-compte">Créer un compte</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.role == 'administrateur'}">
+                        <a class="nav-link" href="/creer-livre">Créer livre</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.role == 'administrateur'}">
+                        <a class="nav-link" href="/admin">Partie Administrateur</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.id == null}">
+                        <a class="nav-link btn btn-outline-light" href="/login">Se connecter</a>
+                    </li>
+                    <li class="nav-item" th:if="${session.id != null}">
+                        <a class="nav-link btn btn-danger text-white" href="/logout">Se déconnecter</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </div>
 </body>
 </html>
