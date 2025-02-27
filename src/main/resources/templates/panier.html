@@ -1,33 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="template" >
-	<body>
-		<div layout:fragment="content">
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Id</th>
-			      <th>Image</th>
-			      <th>Titre</th>
-			      <th>Nombre exemplaire</th>
-			      <th>Nombre de pages</th>
-			      <th colspan="3">Actions</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			      <tr th:each="livre:${livreEmprunterList}">
-			        <td th:text="${livre.id}"></td>
-			        <td><img width="80" th:src="'/images/' + ${livre.image}"></td>
-			        <td th:text="${livre.titre}"></td>
-			        <td th:text="${livre.nbExemplaire}"></td>
-			        <td th:text="${livre.nbPages}"></td>
-			        <td><a th:href="'/afficher-livre/' + ${livre.id}">Détail</a></td>
-			        <td><a th:href="'/supprimer-panier/' + ${livre.id}">Supprimer du panier</a></td>
-			      </tr>
-			  </tbody>
-			</table> 
-			<a href="/valider-panier">Valider le panier</a>	        
-		</div>
-	</body>
-</html>  
+      layout:decorate="template">
+<body>
+    <div layout:fragment="content" class="container my-5">
+       
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Id</th>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Nombre exemplaire</th>
+                        <th>Nombre de pages</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="livre:${livreEmprunterList}" class="align-middle">
+                        <td th:text="${livre.id}" class="text-center"></td>
+                        <td class="text-center">
+                            <img width="80" class="img-thumbnail" th:src="'/images/' + ${livre.image}">
+                        </td>
+                        <td th:text="${livre.titre}"></td>
+                        <td th:text="${livre.nbExemplaire}" class="text-center"></td>
+                        <td th:text="${livre.nbPages}" class="text-center"></td>
+                        <td class="text-center">
+                            <a th:href="'/afficher-livre/' + ${livre.id}" class="btn btn-primary btn-sm">Détail</a>
+                        </td>
+                        <td class="text-center">
+                            <a th:href="'/supprimer-panier/' + ${livre.id}" class="btn btn-danger btn-sm">Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/valider-panier" class="btn btn-success btn-lg">Valider le panier</a>
+        </div>
+    </div>
+</body>
+</html>

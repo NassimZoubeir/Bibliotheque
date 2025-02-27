@@ -4,16 +4,24 @@
       layout:decorate="template">
     <head>
         <title>Détails de l'auteur</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <div layout:fragment="content">
-            <h1 th:text="${auteur.nom}"></h1>
-            <p th:text="${auteur.bibliographie}"></p>
+		<div class="container mt-4" layout:fragment="content">
+		           
+		            <h1 class="text-center mb-4" th:text="${auteur.nom}"></h1>
 
-            <h3>Livres de cet auteur :</h3>
-            <ul>
-                <li th:each="livre : ${livres}" th:text="${livre.titre}"></li>
-            </ul>
-        </div>
+		            <div class="card mb-4">
+		                <div class="card-body">
+		                    <h5 class="card-title">Biographie</h5>
+		                    <p class="card-text" th:text="${auteur.bibliographie}"></p>
+		                </div>
+		            </div>
+
+		            <h3 class="mb-3">Livres de cet auteur :</h3>
+		            <ul class="list-group">
+		                <li class="list-group-item" th:each="livre : ${livres}" th:text="${livre.titre}"></li>
+		            </ul>
+		        </div>
     </body>
 </html>

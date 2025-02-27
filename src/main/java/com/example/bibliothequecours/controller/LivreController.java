@@ -52,7 +52,7 @@ public class LivreController {
     }
 	 @RequestMapping("/creer-livre")
 	 public String creerLivre(Model model) {
-	 model.addAttribute("titre", "Créer livre");
+	 model.addAttribute("titre", "Ajouter un livre");
 	 model.addAttribute("auteurs", auteurRepository.findAll());
      model.addAttribute("editeurs", editeurRepository.findAll());
 	 return "creer-livre";
@@ -119,7 +119,7 @@ public class LivreController {
 				model.addAttribute("livreEmprunterList", livreEmprunterList);
 			}
 			else System.out.println("Pas de livre emprunté");
-			model.addAttribute("titre", "Réservation livre");
+			model.addAttribute("titre", "Réservation de livre");
 			return "panier";
 		}
 	    @RequestMapping("/supprimer-panier/{id}")

@@ -43,7 +43,7 @@ public class EmpruntController {
 		Long idUtilisateur = (Long) request.getSession().getAttribute("id");
 		List<Emprunt> empruntList = utilisateurService.getEmpruntLivreList(idUtilisateur);
 		System.out.println("empruntList=" + empruntList);
-		model.addAttribute("titre", "Emprunt");
+		model.addAttribute("titre", "Emprunt de livre");
 		model.addAttribute("empruntList", empruntList);
 		return "emprunt";
 	}

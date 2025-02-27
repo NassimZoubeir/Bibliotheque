@@ -2,134 +2,177 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template">
-    <head>
-        <title>Tableau de Bord Administrateur</title>
-    </head>
-    <body>
-        <div layout:fragment="content">
-            <h1>Administration</h1>
-    
-            <h2>Utilisateurs</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Login</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="utilisateur : ${utilisateurs}">
-                        <td th:text="${utilisateur.id}"></td>
-                        <td th:text="${utilisateur.login}"></td>
-                        <td th:text="${utilisateur.email}"></td>
-                        <td th:text="${utilisateur.role}"></td>
-                        <td>
-                            <form th:action="@{/admin/supprimerUtilisateur/{id}(id=${utilisateur.id})}" method="post">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>Livres</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Titre</th>
-                        <th>Auteur</th>
-                        <th>Éditeur</th>
-                        <th>Nombre d'exemplaires</th>
-                        <th>Nombre de pages</th>
-                        <th>Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="livre : ${livres}">
-                        <td th:text="${livre.id}"></td>
-                        <td><img th:src="@{'/images/' + ${livre.image}}" alt="Image du livre" style="width: 50px; height: auto;"></td>
-                        <td th:text="${livre.titre}"></td>
-                        <td th:text="${livre.auteur?.nom ?: 'Auteur inconnu'}"></td>
-                        <td th:text="${livre.editeur?.nom ?: 'Éditeur inconnu'}"></td>
-                        <td th:text="${livre.nbExemplaire}"></td>
-                        <td th:text="${livre.nbPages}"></td>
-                        <td th:text="${livre.description}"></td>
-                        <td>
-                            <form th:action="@{/admin/supprimerLivre/{id}(id=${livre.id})}" method="post">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-                     
-            <h2>Auteurs</h2>
-            <form th:action="@{/admin/creerAuteur}" method="post">
-                <label for="nomAuteur">Nom :</label>
-                <input type="text" id="nomAuteur" name="nom" required>
-                <label for="bibliographieAuteur">Bibliographie :</label>
-                <textarea id="bibliographieAuteur" name="bibliographie" required></textarea>
-                <button type="submit">Créer Auteur</button>
-            </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Bibliographie</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="auteur : ${auteurs}">
-                        <td th:text="${auteur.id}"></td>
-                        <td th:text="${auteur.nom}"></td>
-                        <td th:text="${auteur.bibliographie}"></td>
-                        <td>
-                            <form th:action="@{/admin/supprimerAuteur/{id}(id=${auteur.id})}" method="post">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>Éditeurs</h2>
-            <form th:action="@{/admin/creerEditeur}" method="post">
-                <label for="nomEditeur">Nom :</label>
-                <input type="text" id="nomEditeur" name="nom" required>
-                <label for="lienDescriptionEditeur">Lien Description :</label>
-                <input type="url" id="lienDescriptionEditeur" name="lienDescription" required>
-                <button type="submit">Créer Éditeur</button>
-            </form>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nom</th>
-                        <th>Lien Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="editeur : ${editeurs}">
-                        <td th:text="${editeur.id}"></td>
-                        <td th:text="${editeur.nom}"></td>
-                        <td><a th:href="${editeur.lienDescription}" th:text="${editeur.lienDescription}" target="_blank"></a></td>
-                        <td>
-                            <form th:action="@{/admin/supprimerEditeur/{id}(id=${editeur.id})}" method="post">
-                                <button type="submit">Supprimer</button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<head>
+    <title>Tableau de Bord Administrateur</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div layout:fragment="content" class="container my-5">
+       
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            <div class="container-fluid">
+                <a class="navbar-brand text-center mx-auto" href="#">Gestion Administrateur</a>
+            </div>
+        </nav>
+		
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Utilisateurs</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Login</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="utilisateur : ${utilisateurs}">
+                            <td th:text="${utilisateur.id}"></td>
+                            <td th:text="${utilisateur.login}"></td>
+                            <td th:text="${utilisateur.email}"></td>
+                            <td th:text="${utilisateur.role}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerUtilisateur/{id}(id=${utilisateur.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </body>
+      
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Livres</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Titre</th>
+                            <th>Auteur</th>
+                            <th>Éditeur</th>
+                            <th>Exemplaires</th>
+                            <th>Pages</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="livre : ${livres}">
+                            <td th:text="${livre.id}"></td>
+                            <td><img th:src="@{'/images/' + ${livre.image}}" class="img-thumbnail" style="width: 50px;"></td>
+                            <td th:text="${livre.titre}"></td>
+                            <td th:text="${livre.auteur?.nom ?: 'Auteur inconnu'}"></td>
+                            <td th:text="${livre.editeur?.nom ?: 'Éditeur inconnu'}"></td>
+                            <td th:text="${livre.nbExemplaire}"></td>
+                            <td th:text="${livre.nbPages}"></td>
+                            <td th:text="${livre.description}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerLivre/{id}(id=${livre.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Auteurs</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/admin/creerAuteur}" method="post" class="mb-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="text" id="nomAuteur" name="nom" class="form-control" placeholder="Nom de l'auteur" required>
+                        </div>
+                        <div class="col-md-5">
+                            <textarea id="bibliographieAuteur" name="bibliographie" class="form-control" placeholder="Bibliographie" required></textarea>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Bibliographie</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="auteur : ${auteurs}">
+                            <td th:text="${auteur.id}"></td>
+                            <td th:text="${auteur.nom}"></td>
+                            <td th:text="${auteur.bibliographie}"></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerAuteur/{id}(id=${auteur.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card mb-4 shadow">
+            <div class="card-header bg-primary text-white">
+                <h4>Éditeurs</h4>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/admin/creerEditeur}" method="post" class="mb-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="text" id="nomEditeur" name="nom" class="form-control" placeholder="Nom de l'éditeur" required>
+                        </div>
+                        <div class="col-md-5">
+                            <input type="url" id="lienDescriptionEditeur" name="lienDescription" class="form-control" placeholder="Lien Description" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Ajouter</button>
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Lien Description</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="editeur : ${editeurs}">
+                            <td th:text="${editeur.id}"></td>
+                            <td th:text="${editeur.nom}"></td>
+                            <td><a th:href="${editeur.lienDescription}" th:text="${editeur.lienDescription}" target="_blank"></a></td>
+                            <td>
+                                <form th:action="@{/admin/supprimerEditeur/{id}(id=${editeur.id})}" method="post">
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
 </html>
