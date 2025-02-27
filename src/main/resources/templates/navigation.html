@@ -37,7 +37,7 @@
                         <a class="nav-link" href="/admin">Partie Administrateur</a>
                     </li>
                     <li class="nav-item" th:if="${session.id == null}">
-                        <a class="nav-link btn btn-outline-light" href="/login">Se connecter</a>
+                        <a class="nav-link" href="/login">Se connecter</a>
                     </li>
                     <li class="nav-item" th:if="${session.id != null}">
                         <a class="nav-link btn btn-danger text-white" href="/logout">Se déconnecter</a>
