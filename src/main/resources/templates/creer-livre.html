@@ -2,59 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="template">
-<body>
-    <div layout:fragment="content" class="container my-5">
-        <div class="card shadow-lg">
-           
-            <div class="card-body">
-                <form method="POST" action="/creer-livre-validation" enctype="multipart/form-data">
-                    
-                    <div class="mb-3">
-                        <label for="titre" class="form-label">Titre :</label>
-                        <input type="text" id="titre" name="titre" class="form-control" required>
-                    </div>
+	  <head>
+	  	  <title>Crée un livre</title>
+	  </head>
+	  <body>
+	      <div layout:fragment="content" class="container my-5 d-flex justify-content-center">
+	          <div class="card shadow-lg p-3" style="max-width: 500px; width: 100%;">
+	              <div class="card-body">
+	                  <form method="POST" action="/creer-livre-validation" enctype="multipart/form-data">
+	                      
+	                      <div class="mb-2">
+	                          <label for="titre" class="form-label">Titre :</label>
+	                          <input type="text" id="titre" name="titre" class="form-control form-control-sm" required>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="nb" class="form-label">Nombre d'exemplaires :</label>
-                        <input type="number" id="nb" name="nb" class="form-control" required>
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="nb" class="form-label">Nombre d'exemplaires :</label>
+	                          <input type="number" id="nb" name="nb" class="form-control form-control-sm" required>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="nbPages" class="form-label">Nombre de pages :</label>
-                        <input type="number" id="nbPages" name="nbPages" class="form-control" required>
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="nbPages" class="form-label">Nombre de pages :</label>
+	                          <input type="number" id="nbPages" name="nbPages" class="form-control form-control-sm" required>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="descr" class="form-label">Description :</label>
-                        <textarea id="descr" name="descr" class="form-control" rows="3" required></textarea>
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="descr" class="form-label">Description :</label>
+	                          <textarea id="descr" name="descr" class="form-control form-control-sm" rows="2" required></textarea>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="auteur" class="form-label">Auteur :</label>
-                        <select id="auteur" name="auteurId" class="form-select" required>
-                            <option th:each="auteur : ${auteurs}" th:value="${auteur.id}" th:text="${auteur.nom}"></option>
-                        </select>
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="auteur" class="form-label">Auteur :</label>
+	                          <select id="auteur" name="auteurId" class="form-select form-select-sm" required>
+	                              <option th:each="auteur : ${auteurs}" th:value="${auteur.id}" th:text="${auteur.nom}"></option>
+	                          </select>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="editeur" class="form-label">Éditeur :</label>
-                        <select id="editeur" name="editeurId" class="form-select" required>
-                            <option th:each="editeur : ${editeurs}" th:value="${editeur.id}" th:text="${editeur.nom}"></option>
-                        </select>
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="editeur" class="form-label">Éditeur :</label>
+	                          <select id="editeur" name="editeurId" class="form-select form-select-sm" required>
+	                              <option th:each="editeur : ${editeurs}" th:value="${editeur.id}" th:text="${editeur.nom}"></option>
+	                          </select>
+	                      </div>
 
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image :</label>
-                        <input type="file" id="image" name="image" class="form-control">
-                    </div>
+	                      <div class="mb-2">
+	                          <label for="image" class="form-label">Image :</label>
+	                          <input type="file" id="image" name="image" class="form-control form-control-sm">
+	                      </div>
 
-                    <div class="text-center">
-                        <input type="submit" value="Ajouter" name="form_ajouter" class="btn btn-success px-4">
-                    </div>
+	                      <div class="text-center">
+	                          <input type="submit" value="Ajouter" name="form_ajouter" class="btn btn-success btn-sm px-3">
+	                      </div>
 
-                </form>
-            </div>
-        </div>
-    </div>
-</body>
+	                  </form>
+	              </div>
+	          </div>
+	      </div>
+	  </body>
+
 </html>

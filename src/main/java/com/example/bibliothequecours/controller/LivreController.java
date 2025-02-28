@@ -52,7 +52,7 @@ public class LivreController {
     }
 	 @RequestMapping("/creer-livre")
 	 public String creerLivre(Model model) {
-	 model.addAttribute("titre", "Ajouter un livre");
+	 model.addAttribute("titre", "Créer un livre");
 	 model.addAttribute("auteurs", auteurRepository.findAll());
      model.addAttribute("editeurs", editeurRepository.findAll());
 	 return "creer-livre";
