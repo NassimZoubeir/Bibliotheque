@@ -16,6 +16,9 @@ public class Utilisateur {
 	private String passwdHash;
 	private String email;
 	private String role;
+	
+	private boolean verified = false;
+	
 	@OneToMany
 	private List<Emprunt> emprunterLivreList;
 	
@@ -64,6 +67,14 @@ public class Utilisateur {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
 	public List<Emprunt> getEmprunterLivreList() {
 		return emprunterLivreList;
 	}
