@@ -3,10 +3,13 @@ package com.example.bibliothequecours.controller;
 import java.security.NoSuchAlgorithmException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.bibliothequecours.entity.Utilisateur;
 import com.example.bibliothequecours.outil.Outil;
 import com.example.bibliothequecours.service.UtilisateurServiceItf;
@@ -23,7 +26,21 @@ public  class  UtilisateurController  {
 	public  String  creerUtilisateur()  {
 		return  "creer-utilisateur";
 	}
-	
+	@GetMapping("/verifier-email")
+	public String verifierEmail(@RequestParam String token, Model model) {
+	    System.out.println("Token reçu : " + token);
+
+	    boolean isVerified = utilisateurService.verifierEmail(token);
+
+	    if (isVerified) {
+	        model.addAttribute("message", "Votre email a été vérifié avec succès !");
+	    } else {
+	        model.addAttribute("message", "Le jeton est invalide ou expiré.");
+	    }
+
+	    return "verification";
+	}
+
 	@RequestMapping("/creer-compte-validation")
 	public  String  creerUtilisateurValidation(String  login,  String  password,  String  mail)  {
 		System.out.println(login  +  ",  "  +  password  +  ",  "  +  mail);

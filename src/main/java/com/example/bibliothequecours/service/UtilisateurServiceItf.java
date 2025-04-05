@@ -13,5 +13,7 @@ public interface UtilisateurServiceItf {
 	List<Emprunt> getEmpruntLivreList(Long idUtilisateur);
 	Emprunt getEmpruntById(Long id);
 	void majEmprunt(Emprunt emprunt);
+	boolean verifierEmail(String token);
+
 	
 }

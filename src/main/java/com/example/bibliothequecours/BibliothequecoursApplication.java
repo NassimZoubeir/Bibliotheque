@@ -77,7 +77,7 @@ public class BibliothequecoursApplication {
 		livre1.setEditeur(editeur);
 		livreRepository.save(livre1);
 	
-		emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test Bibliotheque", "Bonjour Nassim ce mail vient de ton application Bibliotheque");
+	//	emailService.sendSimpleMessage("zoubeirnassim@gmail.com", "Email Test Bibliotheque", "Bonjour Nassim ce mail vient de ton application Bibliotheque");
 
 	}
 	
